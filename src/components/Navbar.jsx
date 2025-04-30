@@ -10,6 +10,7 @@ import {
   FiInfo,
 } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
+import Logo from "../assets/images/Logo.png";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,11 +33,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <img
-                className="h-8 w-auto"
-                src="/src/assets/images/Logo.png"
-                alt="Letmegrab Logo"
-              />
+              <img className="h-8 w-auto" src={Logo} alt="Letmegrab Logo" />
             </Link>
           </div>
 
@@ -92,7 +89,7 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          
+
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
