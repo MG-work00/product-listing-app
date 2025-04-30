@@ -11,23 +11,8 @@ import { getLimitedProducts } from "../utils/api";
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [carouselImages, setCarouselImages] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const carouselImages = [
-    "/src/assets/images/Coffee.webp",
-    "/src/assets/images/Coffee 1.jpg",
-    "/src/assets/images/Coffee 2.webp",
-    "/src/assets/images/Coffee 3.jpg",
-    "/src/assets/images/Coffee 4.jpg",
-    "/src/assets/images/Coffee 4.webp",
-    "/src/assets/images/Coffee 5.webp",
-    "/src/assets/images/Coffee 6.webp",
-    "/src/assets/images/Coffee 7.webp",
-    "/src/assets/images/Coffee 8.webp",
-    "/src/assets/images/Coffee.jpg",
-    "/src/assets/images/Coffee.png",
-    "/src/assets/images/Coffee.webp",
-  ];
 
   const features = [
     {
@@ -55,6 +40,7 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    loadCarouselImages();
     fetchFeaturedProducts();
   }, []);
 
@@ -67,6 +53,19 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+  };
+  const loadCarouselImages = () => {
+    const images = import.meta.glob("../assets/images/*.{jpg,jpeg,png,webp}", {
+      eager: true,
+      as: "url",
+    });
+
+    const filteredImages = Object.entries(images)
+      .filter(([path]) => !path.includes("Logo.png"))
+      .map(([, url]) => url);
+
+    const sortedImages = filteredImages.sort();
+    setCarouselImages(sortedImages);
   };
 
   return (
